@@ -1,0 +1,174 @@
+<% layout("/layouts/boilerplate") %>
+<style>
+  #filters{
+
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 3rem;
+  
+  }
+  .filter{
+     text-align: center;
+     margin-right: 2rem;
+     margin-top:2rem ;
+    opacity: 0.8;
+  }
+  .filter a{
+    text-decoration: none;
+    color:black;
+    opacity: 0.7;
+  }
+  .filter:hover{
+    opacity: 1;
+    cursor: pointer;
+  }
+    .tax-switch {
+    margin-top: 2rem;
+    margin-left: auto; /* pushes it to the right end */
+    margin-right: 3rem;
+    margin-top: 0.8rem;
+    display: flex;
+    align-items: center;
+  }
+  .form-check-input {
+    width: 3rem;
+    height: 1.5rem;
+    background-color: #ccc;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .form-check-input:checked {
+    background-color: #230aaf; /* Airbnb pink/red tone */
+  }
+
+  .form-check-input:focus {
+    box-shadow: none;
+  }
+
+  .form-check-label {
+    margin-left: 0.5rem;
+    font-weight: 500;
+    color: #333;
+  }
+
+  @media (max-width: 768px) {
+    #filters {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+  .tax-info{
+    display: none;
+  }
+ 
+</style>
+<body>
+   
+<!-- Toggle Button (visible on small screens) -->
+<div class="d-lg-none my-2 ml-6 text-center">
+  <button class="btn btn-search text-center" type="button" data-bs-toggle="collapse" data-bs-target="#filtersCollapse" aria-expanded="false" aria-controls="filtersCollapse">
+    Show Filters
+  </button>
+</div>
+
+<!-- Filters container (collapsible) -->
+<div class="collapse d-lg-block" id="filtersCollapse">
+  <div id="filters" class="d-flex flex-wrap justify-content-start gap-3">
+    
+    <!-- Trending -->
+    <div class="filter text-center">
+      <a href="/filters/tranding">
+        <i class="fa-solid fa-fire"></i>
+        <p>trending</p>
+      </a>
+    </div>
+
+    <!-- Amazing Views -->
+    <div class="filter text-center">
+      <a href="/filters/view">
+        <i class="fa-solid fa-mountain-sun"></i>
+        <p>view</p>
+      </a>
+    </div>
+
+    <!-- Iconic Cities -->
+    <div class="filter text-center">
+      <a href="/filters/cities">
+        <i class="fa-solid fa-city"></i>
+        <p>cities</p>
+      </a>
+    </div>
+
+    <!-- Amazing Pools -->
+    <div class="filter text-center">
+      <a href="/filters/pools">
+        <i class="fa-solid fa-water-ladder"></i>
+        <p>pools</p>
+      </a>
+    </div>
+
+    <!-- Beachfront -->
+    <div class="filter text-center">
+      <a href="/filters/benchfront">
+        <i class="fa-solid fa-umbrella-beach "></i>
+        <p>benchfront</p>
+      </a>
+    </div>
+
+    <!-- Mountain Retreats -->
+    <div class="filter text-center">
+      <a href="/filters/mountain">
+        <i class="fa-solid fa-tree "></i>
+        <p>mountain</p>
+      </a>
+    </div>
+
+    <div class="form-check form-switch mt-5 tax-switch">
+    <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+    <label class="form-check-label" for="switchCheckDefault">Show Total With Tax </label>
+  </div>
+</div>
+
+</div>
+<div class="row row-cols-lg-3 row-col-md-2 row-col-sm-1 mt-3">
+    <% allListings.forEach(listing => { %>
+      <div class="card cols" style="width: 25rem; margin-left: 2rem;">
+
+         <a href="/listing/<%= listing._id %>"><img src="<%=listing.image.url%>" class="card-img-top" alt="listingImg" style=" height: 20rem;">
+          <div class="card-img-overlay"></div>
+          </a>
+        
+        
+         <div class="card-body">
+            <a href="/listing/<%= listing._id %>"> 
+            <p class="card-text">
+              <b><%= listing.title %></b>
+               <br>
+            &#8377;
+            <%= listing.price.toLocaleString("en-IN") %>/night 
+            <i class="tax-info">&nbsp; &nbsp;+18%</i>
+           </p>
+          </a>
+
+           
+        </div>
+           </div>
+
+      <% }) %>
+</div>
+   
+<script>
+  let taxSwitch=document.getElementById("switchCheckDefault");
+  taxSwitch.addEventListener("click", ()=>{
+    let taxInfo = document.getElementsByClassName("tax-info")
+    console.log(taxInfo);
+     for(info of taxInfo){
+      if(info.style.display != "inline"){
+         info.style.display="inline"; 
+      }else
+       info.style.display="none";
+     }
+  })
+</script>

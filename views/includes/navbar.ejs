@@ -1,0 +1,150 @@
+<head>
+  <link rel="stylesheet" href="/css/style.css">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <style>
+    /* 🔍 Search input with icon */
+    .search-wrapper {
+      position: relative;
+    }
+    .search-wrapper input {
+      padding-left: 30px; /* Space for icon */
+    }
+    .search-wrapper .fa-magnifying-glass {
+      position: absolute;
+      top: 50%;
+      left: 8px;
+      transform: translateY(-50%);
+      color: gray;
+      font-size: 14px;
+      pointer-events: none;
+    }
+    /* Smaller input for mobile */
+    .form-control-sm {
+      height: 32px;
+      font-size: 0.875rem;
+    }
+  </style>
+</head>
+
+<nav class="navbar navbar-expand-md bg-body-tertiary border-bottom sticky-top">
+  <div class="container-fluid">
+    <!-- Brand / Logo -->
+    <a class="navbar-brand" href="/listing">
+      <i class="fa-regular fa-compass"></i>
+    </a>
+
+    <!-- ===== MOBILE LAYOUT ===== -->
+    <div class="d-flex d-md-none align-items-center ms-auto">
+      <!-- Small Search Input with Icon -->
+      <form class="d-flex me-2" role="search" id="mobile-search-form">
+        <div class="search-wrapper">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input
+            class="form-control form-control-sm"
+            type="search"
+            placeholder="Search..."
+            id="mobile-search"
+            list="destinations"
+          />
+          <datalist id="destinations">
+            <option value="United States">
+            <option value="Italy">
+            <option value="Mexico">
+            <option value="Switzerland">
+            <option value="Tanzania">
+            <option value="Indonesia">
+            <option value="Japan">
+            <option value="UAE">
+          </datalist>
+        </div>
+      </form>
+
+      <!-- User Icon -->
+      <% if(!currUser){ %>
+        <a href="/login" class="btn btn-sm btn-outline-secondary me-2">
+          <i class="fa-regular fa-user"></i>
+        </a>
+      <% } else { %>
+        <a href="/logout" class="btn btn-sm btn-outline-secondary me-2">
+          <i class="fa-solid fa-right-from-bracket"></i>
+        </a>
+      <% } %>
+
+      <!-- Hamburger -->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+
+    <!-- ===== DESKTOP LAYOUT ===== -->
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav me-auto">
+        <a class="nav-link" href="/listing">Explore</a>
+      </div>
+
+      <!-- Desktop Search with Icon -->
+      <form class="d-flex d-none d-md-flex" role="search" id="desktop-search-form">
+        <div class="search-wrapper">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input
+            class="form-control me-2 search-inp"
+            type="search"
+            placeholder="Search Destinations..."
+            id="search-inp"
+            list="destinations"
+          />
+        </div>
+      </form>
+
+      <div class="navbar-nav ms-auto">
+        <a class="nav-link" href="/listing/new">Airbnb Your Home</a>
+        <% if(!currUser){ %>
+          <a class="nav-link" href="/signup"><b>Sign Up</b></a>
+          <a class="nav-link" href="/login"><b>Login</b></a>
+        <% } else { %>
+          <a class="nav-link" href="/logout"><b>Log Out</b></a>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  // Desktop search
+  const searchInput = document.getElementById("search-inp");
+  if (searchInput) {
+    searchInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        const country = searchInput.value.trim();
+        if (country) window.location.href = `/filter/${country}`;
+      }
+    });
+  }
+
+  // Mobile search
+  const mobileSearch = document.getElementById("mobile-search");
+  if (mobileSearch) {
+    mobileSearch.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        const country = mobileSearch.value.trim();
+        if (country) window.location.href = `/filter/${country}`;
+      }
+    });
+  }
+</script>

@@ -1,0 +1,75 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="row">
+  <div class="col-8 offset-2">
+    <h2 class="mb-4">Create a New Listing</h2>
+
+    <form action="/listing" method="POST" novalidate class="needs-validation" enctype="multipart/form-data">
+      
+      <!-- Title -->
+      <div class="mb-3">
+        <label for="title" class="form-label">Title:</label>
+        <input type="text" name="listing[title]" id="title" class="form-control" placeholder="Add catchy title" required>
+        <div class="invalid-feedback">Please provide a valid title.</div>
+      </div>
+
+      <!-- Description -->
+      <div class="mb-3">
+        <label for="description" class="form-label">Description:</label>
+        <textarea name="listing[description]" id="description" rows="3" class="form-control" required></textarea>
+        <div class="invalid-feedback">Please provide a description.</div>
+      </div>
+
+      <div class="row">
+        <!-- Price -->
+        <div class="mb-3 col-md-6">
+          <label for="price" class="form-label">Price (₹):</label>
+          <input type="number" name="listing[price]" id="price" class="form-control" placeholder="1200" required>
+          <div class="invalid-feedback">Please enter a valid price.</div>
+        </div>
+
+        <div class="dropdown col-md-6 mt-4 pt-1">
+              <select name="listing[type]" id="type" class="form-select" required>
+                 <option selected disabled>Select a type</option>
+                 <option value="tranding">Tranding</option>
+                  <option value="view">Amezing View</option>
+                  <option value="cities">Iconic Cities</option>
+                  <option value="pools">Amazing Pools</option>
+                  <option value="benchfront">Beachfront</option>
+                   <option value="mountain">Mountain</option>
+  </select>
+            </div>
+            </div>
+            <div class="row">
+
+        <!-- Country -->
+        <div class="mb-3 col-md-6">
+          <label for="country" class="form-label">Country:</label>
+          <input type="text" name="listing[country]" id="country" class="form-control" required>
+          <div class="invalid-feedback">Please enter a valid country.</div>
+        </div>
+     
+         <!-- Location -->
+      <div class="mb-3 col-md-6">
+        <label for="location" class="form-label">Location:</label>
+        <input type="text" name="listing[location]" id="location" class="form-control" required>
+        <div class="invalid-feedback">Please enter a valid location.</div>
+      </div>
+
+      </div>
+
+     
+
+      
+       <!-- Image -->
+      <div class="mb-3">
+        <label for="image" class="form-label">Upload Image</label>
+        <input type="file" name="listing[image]" id="image" class="form-control" placeholder="https://example.com/image.jpg" required>
+      </div>
+
+      <!-- Submit -->
+      <button type="submit" class="btn btn-dark">Add Listing</button>
+    </form>
+  </div>
+</div>
+
