@@ -87,9 +87,7 @@ app.get("/demo", async (req, res) => {
     res.send(registeredUser);
 });
 
-app.get("/", (req, res) => {
-    res.send("Hii");
-});
+
 
 app.use("/", listingRouter);
 app.use("/listing/:id", reviewRouter);
